@@ -14,15 +14,50 @@ screen_height = screen_info.current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Simple Screen")
 
+# Load the background image
+background_image = pygame.image.load("images/background.jpg")  # Replace with your image file path
+
+# Resize the image to fit the screen (optional, if image size is different)
+background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
+
+def create_button(text : str, pos : int):
+    button_color = (169, 169, 169)  # Grey color
+    button_width = 200
+    button_height = 25
+    button_x = (screen_width - button_width) // 2  # Center horizontally
+    button_y = screen_height - button_height - pos   # pos pixels from the bottom
+    button_rect = pygame.Rect(button_x, button_y, button_width, button_height)
+    button_border_radius = 20  # Radius for rounded corners
+
+    # Define font for button text
+    font = pygame.font.SysFont("Times New Roman", 25)  # Times New Roman with font size 25
+    button_text = font.render(text, True, (255, 255, 255))  # White text
+
+    pygame.draw.rect(screen, button_color, button_rect, border_radius=button_border_radius)
+    text_rect = button_text.get_rect(center=button_rect.center)
+    screen.blit(button_text, text_rect)
+
+    return button_rect
+
 # Main game loop
 running = True
 while running:
+    # Fill the screen with a image
+    screen.blit(background_image, (0, 0))
+    quit_Button = create_button("Quit", 100)
+    poker_Button = create_button("Poker", 150)
+    blackjack_Button = create_button("Blackjack", 200)
+    roulette_Button = create_button("Roulette", 250)
+    craps_Button = create_button("Craps", 300)
+    
+    mouse_pos = pygame.mouse.get_pos()  # Get the x, y position of the mouse
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False  # Exit the loop when the window is closed
-    
-    # Fill the screen with a color (optional, just to show something on the screen)
-    screen.fill((255, 255, 255))
+
+        if event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse click
+            if quit_Button.collidepoint(mouse_pos):  # Check if button is clicked
+                running = False
     
     # Update the display
     pygame.display.flip()
@@ -30,3 +65,6 @@ while running:
 # Quit pygame
 pygame.quit()
 sys.exit()
+
+
+
