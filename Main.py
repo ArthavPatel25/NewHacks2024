@@ -14,15 +14,19 @@ screen_height = screen_info.current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Simple Screen")
 
-# Set a background color (RGB format)
-background_color = (255, 255, 255)  # White color
-
 # Main game loop
 running = True
 while running:
-    # Fill the screen with the background color
-    screen.fill(background_color)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False  # Exit the loop when the window is closed
     
-    # Event handling
-    # for event in pygame:
+    # Fill the screen with a color (optional, just to show something on the screen)
+    screen.fill((255, 255, 255))
+    
+    # Update the display
+    pygame.display.flip()
 
+# Quit pygame
+pygame.quit()
+sys.exit()
