@@ -1,0 +1,112 @@
+[33mcommit 625554d0780ede0b59df6bed31b4685ca37482ee[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKrish[m[33m)[m
+Merge: 8ee976a ee0ec6a
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 17:19:26 2024 -0400
+
+    Merge branch 'main' into Krish
+
+[33mcommit 8ee976a5299e053cac3f6110609a68fae206b042[m[33m ([m[1;31morigin/Krish[m[33m)[m
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 17:14:15 2024 -0400
+
+    implemented the game logic in Crabs.py
+
+[33mcommit 0527c877c11e1e3d864b1638a41a9501febf9b9b[m
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 15:37:39 2024 -0400
+
+    updated crabsoop file
+
+[33mcommit e8b7d7fef69828f263f8128bd9de13cec8724cd7[m
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 15:35:33 2024 -0400
+
+    added the oop functionality of crabs game
+
+[33mcommit ee0ec6a07fc5e324f74ff6e320b1f43333645afd[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 14:51:47 2024 -0400
+
+    merged utility folder from Krish Branch
+
+[33mcommit 1613354f6a3458b1f24dabbbe10f5a4fbc55fb0c[m
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 14:44:44 2024 -0400
+
+    added the utility.py
+
+[33mcommit b4d2dc5b83d279e40746a103137840f05841ac03[m[33m ([m[1;31morigin/Tanay[m[33m, [m[1;31morigin/Matthew[m[33m)[m
+Author: Tanay Langhe <tanaylanghe@gmail.com>
+Date:   Sat Oct 26 13:59:38 2024 -0400
+
+    Added better button and button creation function
+
+[33mcommit ae988037bfacb0df773caf351bd918da9e830937[m
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 13:45:11 2024 -0400
+
+    added card images
+
+[33mcommit 536e7d98f8fa8a6a70ea6f116f8ba18e3c2b74d2[m
+Author: Tanay Langhe <tanaylanghe@gmail.com>
+Date:   Sat Oct 26 13:38:25 2024 -0400
+
+    Made basic screen with buttons
+
+[33mcommit d5e519ef92b3e585820b654c91827d5306aef6ac[m
+Author: nicoazueroo <nicoazuero@gmail.com>
+Date:   Sat Oct 26 13:14:09 2024 -0400
+
+    create a file srtucture
+
+[33mcommit 392228f3fafebbb4e8a6dde9402ec407cc7c16e1[m
+Merge: 7d1ae78 4127cb4
+Author: nicoazueroo <nicoazuero@gmail.com>
+Date:   Sat Oct 26 13:11:03 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArthavPatel25/NewHacks2024
+    r
+    fatal: unable to access 'https://github.com/ArthavPatel25/NewHacks2024.git/': The requested URL returned error: 403rts
+
+[33mcommit 4127cb41d080e439ef0fe3671e5a0c97c6545734[m
+Author: Tanay Langhe <tanaylanghe@gmail.com>
+Date:   Sat Oct 26 12:00:11 2024 -0400
+
+    Made it so the screen can be closed properly
+
+[33mcommit 7d1ae78ec8472b433626ebd1c8c92e6355ad2c2d[m
+Merge: 901c674 39385f6
+Author: nicoazueroo <nicoazuero@gmail.com>
+Date:   Sat Oct 26 11:58:19 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArthavPatel25/NewHacks2024
+
+[33mcommit 901c6749ff416d5c9f0a604a798da39ba30599ff[m
+Author: nicoazueroo <nicoazuero@gmail.com>
+Date:   Sat Oct 26 11:58:11 2024 -0400
+
+    temp
+
+[33mcommit 86b87375d6f858e4e286af9f884e0677dac0021a[m
+Author: nicoazueroo <nicoazuero@gmail.com>
+Date:   Sat Oct 26 11:57:32 2024 -0400
+
+    xysad
+
+[33mcommit 39385f695b90850d1c6e1837413cf109991c31ac[m
+Author: Tanay Langhe <tanaylanghe@gmail.com>
+Date:   Sat Oct 26 11:53:47 2024 -0400
+
+    Created the Main file
+
+[33mcommit 4c39ba42ca6ac8c990ccf6d39e3ddb33b8641f5d[m
+Author: krish <krishgohil843@gmail.com>
+Date:   Sat Oct 26 11:28:33 2024 -0400
+
+    This is updated readme
+
+[33mcommit 537d17ac0eb45ad63d00baad24716bd972f2156c[m
+Author: Arthav Patel <arthavcpatel@gmail.com>
+Date:   Sat Oct 26 10:55:00 2024 -0400
+
+    Initial commit
