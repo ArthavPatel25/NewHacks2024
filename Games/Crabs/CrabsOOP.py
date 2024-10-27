@@ -1,18 +1,14 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
 import random
 from Games.Utility.utility import DeckManager
 
 class CrapsGame:
     def __init__(self):
         self.deck_manager = DeckManager()
-        self.player_bankroll = 1000  # Starting bankroll
+        self.player_bankroll = 1000
         self.current_bet = 0
-        self.point_bet = 0
+        self.point_bets = {}
         self.point = 0
-        self.game_state = "come_out"  # "come_out" or "point"
+        self.game_state = "come_out"
 
     def place_bet(self, amount):
         if amount <= self.player_bankroll:
@@ -21,19 +17,16 @@ class CrapsGame:
             return True
         return False
 
-    # def place_point_bet(self, amount):
-    #     if amount <= self.player_bankroll:
-    #         self.point_bet = amount
-    #         self.player_bankroll -= amount
-    #         return True
-    #     return False
     def place_point_bet(self, amount, point_value):
         if amount <= self.player_bankroll:
-            self.point_bet = amount
-            self.point = point_value
+            if point_value in self.point_bets:
+                self.point_bets[point_value] += amount
+            else:
+                self.point_bets[point_value] = amount
             self.player_bankroll -= amount
             return True
         return False
+
     def roll_dice(self):
         self.deck_manager.shuffle_deck()
         card1 = self.deck_manager.draw_card()
@@ -45,7 +38,6 @@ class CrapsGame:
         
         value1 = self.card_to_value(card1)
         value2 = self.card_to_value(card2)
-        print(f"Cards drawn: {card1} ({value1}), {card2} ({value2})")
         return value1 + value2, (card1, card2)
 
     def card_to_value(self, card):
@@ -80,15 +72,16 @@ class CrapsGame:
         roll, cards = self.roll_dice()
         if roll == self.point:
             self.win()
-            self.win_point_bet()
+            self.win_point_bet(roll)
             self.game_state = "come_out"
             return f"You made the point {roll}! You win!", cards, roll
         elif roll == 7:
             self.lose()
-            self.lose_point_bet()
+            self.lose_all_point_bets()
             self.game_state = "come_out"
             return "Seven out! You lose.", cards, roll
         else:
+            self.win_point_bet(roll)
             return f"Rolled {roll}, point is {self.point}", cards, roll
 
     def win(self):
@@ -98,12 +91,13 @@ class CrapsGame:
     def lose(self):
         self.current_bet = 0
 
-    def win_point_bet(self):
-        self.player_bankroll += self.point_bet * 2
-        self.point_bet = 0
+    def win_point_bet(self, roll):
+        if roll in self.point_bets:
+            self.player_bankroll += self.point_bets[roll] * 2
+            del self.point_bets[roll]
 
-    def lose_point_bet(self):
-        self.point_bet = 0
+    def lose_all_point_bets(self):
+        self.point_bets.clear()
 
     def get_bankroll(self):
         return self.player_bankroll
@@ -117,5 +111,8 @@ class CrapsGame:
     def set_game_state(self, state):
         self.game_state = state
 
-    def get_point_bet(self):
-        return self.point_bet
+    def get_point_bets(self):
+        return self.point_bets
+
+    def reset_point_bets(self):
+        self.point_bets.clear()
