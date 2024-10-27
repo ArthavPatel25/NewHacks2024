@@ -48,7 +48,6 @@ draw_card_sound_effect = pygame.mixer.Sound("assets\sounds\draw cards sound effe
 shuffle_card_SF  = pygame.mixer.Sound("assets\sounds\Shuffling Cards Sound Effects [ ezmp3.cc ].mp3")
 button_click_SF = pygame.mixer.Sound("assets\sounds\Wooden Button Click Sound Effect [ ezmp3.cc ].mp3")
 
-
 # Main game loop
 running = True
 while running:
