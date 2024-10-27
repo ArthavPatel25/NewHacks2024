@@ -1,8 +1,10 @@
 import pygame
 import sys
+from Games.BlackJack import BlackJack
 
 # Initialize pygame
 pygame.init()
+pygame.mixer.init()
 
 screen_info = pygame.display.Info()
 
@@ -37,6 +39,11 @@ def create_button(text : str, pos : int):
     screen.blit(button_text, text_rect)
 
     return button_rect
+pygame.mixer.music.load("assets\sounds\🛑 Casino Music_ For Poker Night, Smooth Jazz, 1970s Mafia, Funk, 🔝 [ ezmp3.cc ].mp3")
+pygame.mixer.music.play(-1)
+draw_card_sound_effect = pygame.mixer.Sound("assets\sounds\draw cards sound effect.mp3")
+shuffle_card_SF  = pygame.mixer.Sound("assets\sounds\Shuffling Cards Sound Effects [ ezmp3.cc ].mp3")
+button_click_SF = pygame.mixer.Sound("assets\sounds\Wooden Button Click Sound Effect [ ezmp3.cc ].mp3")
 
 # Main game loop
 running = True
@@ -57,6 +64,9 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse click
             if quit_Button.collidepoint(mouse_pos):  # Check if button is clicked
                 running = False
+            elif blackjack_Button.collidepoint(mouse_pos):
+                button_click_SF.play() 
+                BlackJack.run_blackjack(screen,100,draw_card_sound_effect, shuffle_card_SF, button_click_SF)
     
     # Update the display
     pygame.display.flip()
