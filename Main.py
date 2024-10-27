@@ -1,6 +1,7 @@
 import pygame
 import sys
 from Games.Roulette import Roulette
+from Games.BlackJack import BlackJack
 
 # Initialize pygame
 pygame.init()
@@ -60,6 +61,14 @@ while running:
                 running = False
             elif roulette_Button.collidepoint(mouse_pos):
                 Roulette.RouletteGame(100).runGame()
+            elif blackjack_Button.collidepoint(mouse_pos):
+                print("test")
+                # BlackJack.Blackjack(100).runGame()
+            elif craps_Button.collidepoint(mouse_pos):
+                print("test")
+            elif poker_Button.collidepoint(mouse_pos):
+                print("test")
+
     
     # Update the display
     pygame.display.flip()
