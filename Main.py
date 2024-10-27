@@ -1,6 +1,5 @@
 import pygame
 import sys
-from Games.Crabs.Crabs import main as craps_main
 
 # Initialize pygame
 pygame.init()
@@ -13,7 +12,7 @@ screen_height = screen_info.current_h
 
 # Create the game window
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Casino Games")
+pygame.display.set_caption("Simple Screen")
 
 # Load the background image
 background_image = pygame.image.load("images/background.jpg")  # Replace with your image file path
@@ -61,21 +60,12 @@ def main_menu():
             if event.type == pygame.QUIT:
                 running = False  # Exit the loop when the window is closed
 
-            if event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse click
-                if quit_button.collidepoint(mouse_pos):
-                    running = False
-                elif craps_button.collidepoint(mouse_pos):
-                    launch_craps()
-                # Add similar conditions for other game buttons when implemented
-                # elif poker_button.collidepoint(mouse_pos):
-                #     launch_poker()
-                # elif blackjack_button.collidepoint(mouse_pos):
-                #     launch_blackjack()
-                # elif roulette_button.collidepoint(mouse_pos):
-                #     launch_roulette()
-        
-        # Update the display
-        pygame.display.flip()
+        if event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse click
+            if quit_Button.collidepoint(mouse_pos):  # Check if button is clicked
+                running = False
+    
+    # Update the display
+    pygame.display.flip()
 
 # Main execution
 if __name__ == "__main__":
