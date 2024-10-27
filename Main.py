@@ -2,6 +2,7 @@ import pygame
 import sys
 from Games.Roulette import Roulette
 from Games.BlackJack import BlackJack
+from Games.Crabs import Crabs
 
 # Initialize pygame
 pygame.init()
@@ -40,6 +41,10 @@ def create_button(text : str, pos : int):
 
     return button_rect
 
+# def launch_craps():
+#         craps_main()
+#         pygame.display.set_mode((screen_width, screen_height))  # Reset display to main menu size
+
 # Main game loop
 running = True
 while running:
@@ -65,7 +70,7 @@ while running:
                 print("test")
                 # BlackJack.Blackjack(100).runGame()
             elif craps_Button.collidepoint(mouse_pos):
-                print("test")
+                Crabs.main()
             elif poker_Button.collidepoint(mouse_pos):
                 print("test")
 
