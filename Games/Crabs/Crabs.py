@@ -58,17 +58,26 @@ next_round_button = Button(WIDTH // 2 + 20, HEIGHT - 150, 200, 50, "Next Round",
 come_out_button = Button(WIDTH // 2 - 100, HEIGHT // 4, 200, 50, "Come Out", RED, WHITE)
 return_to_menu_button = Button(WIDTH - 220, 10, 200, 50, "Return to Menu", RED, WHITE)
 
+# point_bet_buttons = {}
+# point_values = [4, 5, 6, 8, 9, 10]
+# button_width, button_height = 100, 50
+# button_spacing = 20
+# total_button_width = (button_width * len(point_values)) + (button_spacing * (len(point_values) - 1))
+# start_x = (WIDTH - total_button_width) // 2
+# for i, value in enumerate(point_values):
+#     x = start_x + i * (button_width + button_spacing)
+#     y = HEIGHT * 3 // 4
+#     point_bet_buttons[value] = Button(x, y, button_width, button_height, f"Bet {value}", BLUE, WHITE)
 point_bet_buttons = {}
 point_values = [4, 5, 6, 8, 9, 10]
 button_width, button_height = 100, 50
 button_spacing = 20
-total_button_width = (button_width * len(point_values)) + (button_spacing * (len(point_values) - 1))
-start_x = (WIDTH - total_button_width) // 2
+total_button_height = (button_height * len(point_values)) + (button_spacing * (len(point_values) - 1))
+start_y = (HEIGHT - total_button_height) // 2
+x = WIDTH // 4  # Halfway between the left edge and the center
 for i, value in enumerate(point_values):
-    x = start_x + i * (button_width + button_spacing)
-    y = HEIGHT * 3 // 4
+    y = start_y + i * (button_height + button_spacing)
     point_bet_buttons[value] = Button(x, y, button_width, button_height, f"Bet {value}", BLUE, WHITE)
-
 def draw_game(screen, game, message, cards=None, roll_value=None, earnings=None):
     screen.blit(background_image, (0, 0))
 
@@ -263,3 +272,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
