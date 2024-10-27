@@ -1,5 +1,6 @@
 import pygame
 import sys
+from Games.Roulette import Roulette
 
 # Initialize pygame
 pygame.init()
@@ -12,7 +13,7 @@ screen_height = screen_info.current_h
 
 # Create the game window
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Simple Screen")
+pygame.display.set_caption("Main Screen")
 
 # Load the background image
 background_image = pygame.image.load("images/background.jpg")  # Replace with your image file path
@@ -57,6 +58,8 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse click
             if quit_Button.collidepoint(mouse_pos):  # Check if button is clicked
                 running = False
+            elif roulette_Button.collidepoint(mouse_pos):
+                Roulette.RouletteGame(100).runGame()
     
     # Update the display
     pygame.display.flip()
