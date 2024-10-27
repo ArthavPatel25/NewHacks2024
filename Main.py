@@ -6,6 +6,7 @@ from Games.Crabs import Crabs
 
 # Initialize pygame
 pygame.init()
+pygame.mixer.init()
 
 screen_info = pygame.display.Info()
 
@@ -40,10 +41,13 @@ def create_button(text : str, pos : int):
     screen.blit(button_text, text_rect)
 
     return button_rect
+  
+pygame.mixer.music.load("assets\sounds\🛑 Casino Music_ For Poker Night, Smooth Jazz, 1970s Mafia, Funk, 🔝 [ ezmp3.cc ].mp3")
+pygame.mixer.music.play(-1)
+draw_card_sound_effect = pygame.mixer.Sound("assets\sounds\draw cards sound effect.mp3")
+shuffle_card_SF  = pygame.mixer.Sound("assets\sounds\Shuffling Cards Sound Effects [ ezmp3.cc ].mp3")
+button_click_SF = pygame.mixer.Sound("assets\sounds\Wooden Button Click Sound Effect [ ezmp3.cc ].mp3")
 
-# def launch_craps():
-#         craps_main()
-#         pygame.display.set_mode((screen_width, screen_height))  # Reset display to main menu size
 
 # Main game loop
 running = True
@@ -67,8 +71,8 @@ while running:
             elif roulette_Button.collidepoint(mouse_pos):
                 Roulette.RouletteGame(100).runGame()
             elif blackjack_Button.collidepoint(mouse_pos):
-                print("test")
-                # BlackJack.Blackjack(100).runGame()
+                button_click_SF.play() 
+                BlackJack.run_blackjack(screen,100,draw_card_sound_effect, shuffle_card_SF, button_click_SF)
             elif craps_Button.collidepoint(mouse_pos):
                 Crabs.main()
             elif poker_Button.collidepoint(mouse_pos):
