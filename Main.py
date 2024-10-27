@@ -1,5 +1,6 @@
 import pygame
 import sys
+from Games.Roulette import Roulette
 from Games.BlackJack import BlackJack
 
 # Initialize pygame
@@ -14,7 +15,7 @@ screen_height = screen_info.current_h
 
 # Create the game window
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Simple Screen")
+pygame.display.set_caption("Main Screen")
 
 # Load the background image
 background_image = pygame.image.load("images/background.jpg")  # Replace with your image file path
@@ -39,6 +40,7 @@ def create_button(text : str, pos : int):
     screen.blit(button_text, text_rect)
 
     return button_rect
+
 pygame.mixer.music.load("assets\sounds\🛑 Casino Music_ For Poker Night, Smooth Jazz, 1970s Mafia, Funk, 🔝 [ ezmp3.cc ].mp3")
 pygame.mixer.music.play(-1)
 draw_card_sound_effect = pygame.mixer.Sound("assets\sounds\draw cards sound effect.mp3")
@@ -64,9 +66,16 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse click
             if quit_Button.collidepoint(mouse_pos):  # Check if button is clicked
                 running = False
+            elif roulette_Button.collidepoint(mouse_pos):
+                Roulette.RouletteGame(100).runGame()
             elif blackjack_Button.collidepoint(mouse_pos):
                 button_click_SF.play() 
                 BlackJack.run_blackjack(screen,100,draw_card_sound_effect, shuffle_card_SF, button_click_SF)
+            elif craps_Button.collidepoint(mouse_pos):
+                print("test")
+            elif poker_Button.collidepoint(mouse_pos):
+                print("test")
+
     
     # Update the display
     pygame.display.flip()
