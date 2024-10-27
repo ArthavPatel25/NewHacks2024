@@ -9,6 +9,7 @@ class CrapsGame:
         self.point_bets = {}
         self.point = 0
         self.game_state = "come_out"
+        
 
     def place_bet(self, amount):
         if amount <= self.player_bankroll:

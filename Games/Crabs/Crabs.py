@@ -25,6 +25,8 @@ card_images = {}
 image_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'Images')
 background_image = pygame.image.load(os.path.join(image_path, 'pokerBackground.jpg'))
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
+shuffledeckSound = pygame.mixer.Sound('assets\sounds\draw cards sound effect.mp3')
+woodenButtonClickSoung = pygame.mixer.Sound('assets\sounds\Wooden Button Click Sound Effect [ ezmp3.cc ].mp3')
 
 for image_file in os.listdir(image_path):
     if image_file.endswith('.png'):
@@ -58,16 +60,7 @@ next_round_button = Button(WIDTH // 2 + 20, HEIGHT - 150, 200, 50, "Next Round",
 come_out_button = Button(WIDTH // 2 - 100, HEIGHT // 4, 200, 50, "Come Out", RED, WHITE)
 return_to_menu_button = Button(WIDTH - 220, 10, 200, 50, "Return to Menu", RED, WHITE)
 
-# point_bet_buttons = {}
-# point_values = [4, 5, 6, 8, 9, 10]
-# button_width, button_height = 100, 50
-# button_spacing = 20
-# total_button_width = (button_width * len(point_values)) + (button_spacing * (len(point_values) - 1))
-# start_x = (WIDTH - total_button_width) // 2
-# for i, value in enumerate(point_values):
-#     x = start_x + i * (button_width + button_spacing)
-#     y = HEIGHT * 3 // 4
-#     point_bet_buttons[value] = Button(x, y, button_width, button_height, f"Bet {value}", BLUE, WHITE)
+
 point_bet_buttons = {}
 point_values = [4, 5, 6, 8, 9, 10]
 button_width, button_height = 100, 50
@@ -82,44 +75,44 @@ def draw_game(screen, game, message, cards=None, roll_value=None, earnings=None)
     screen.blit(background_image, (0, 0))
 
     bankroll_text = font.render(f"Bankroll: ${game.get_bankroll()}", True, WHITE)
-    screen.blit(bankroll_text, (10, 10))
+    screen.blit(bankroll_text, (50, 50))
 
     bet_text = font.render(f"Current Bet: ${game.current_bet}", True, WHITE)
-    screen.blit(bet_text, (10, 50))
+    screen.blit(bet_text, (50, 100))
 
     point_bets = game.get_point_bets()
-    y_offset = 90
+    y_offset = 150
     if point_bets:
         point_bets_text = font.render("Point Bets:", True, WHITE)
-        screen.blit(point_bets_text, (10, y_offset))
+        screen.blit(point_bets_text, (50, y_offset))
         y_offset += 40
         for point, bet in point_bets.items():
             point_bet_text = font.render(f"  Bet on {point}: ${bet}", True, WHITE)
-            screen.blit(point_bet_text, (10, y_offset))
+            screen.blit(point_bet_text, (50, y_offset))
             y_offset += 40
     else:
         no_point_bets_text = font.render("No Point Bets", True, WHITE)
-        screen.blit(no_point_bets_text, (10, y_offset))
+        screen.blit(no_point_bets_text, (50, y_offset))
         y_offset += 40
 
     state_text = font.render(f"Game State: {'Come Out' if game.get_game_state() == 'come_out' else 'Point'}", True, WHITE)
-    screen.blit(state_text, (10, y_offset))
+    screen.blit(state_text, (50, y_offset))
     y_offset += 40
 
     if game.get_point():
         point_text = font.render(f"Point: {game.get_point()}", True, WHITE)
-        screen.blit(point_text, (10, y_offset))
+        screen.blit(point_text, (50, y_offset))
         y_offset += 40
 
     if roll_value is not None:
         roll_text = font.render(f"Roll: {roll_value}", True, WHITE)
-        screen.blit(roll_text, (10, y_offset))
+        screen.blit(roll_text, (50, y_offset))
         y_offset += 40
 
     if earnings is not None:
         earnings_color = GREEN if earnings >= 0 else RED
         earnings_text = font.render(f"{'Earnings' if earnings >= 0 else 'Loss'}: ${abs(earnings)}", True, earnings_color)
-        screen.blit(earnings_text, (10, y_offset))
+        screen.blit(earnings_text, (50, y_offset))
 
     message_text = font.render(message, True, WHITE)
     screen.blit(message_text, (WIDTH // 2 - message_text.get_width() // 2, HEIGHT - 200))
@@ -180,6 +173,7 @@ def main():
 
                 elif place_bet_button.is_clicked(event.pos) and input_active:
                     try:
+                        shuffledeckSound.play()
                         bet = int(bet_input)
                         if game.place_bet(bet):
                             input_active = False
@@ -194,6 +188,7 @@ def main():
                     bet_input = ""
 
                 elif next_round_button.is_clicked(event.pos) and not input_active:
+                    woodenButtonClickSoung.play()
                     if game.get_game_state() == "come_out":
                         input_active = True
                         message = "Place your bet!"
