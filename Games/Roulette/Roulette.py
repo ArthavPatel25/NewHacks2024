@@ -4,11 +4,13 @@ import time
 import random
 
 class RouletteGame:
-    def __init__(self, points):
+    def __init__(self, points, sound1, sound2):
         pygame.init()
         self.screen_info = pygame.display.Info()
         self.points = points
         self.numbers = []
+        self.sound1 = sound1
+        self.sound2 = sound2
     
     def getPoints(self):
         return self.points
@@ -52,8 +54,8 @@ class RouletteGame:
         rolling_text =  font_roll.render("Rolling...", True, (255, 255, 255))
         area_rect = pygame.Rect(100, screen_height/2, 200, 75)
         rolling_rect = rolling_text.get_rect(center=area_rect.center)
-                
-        for x in range(10):
+        self.sound2.play()
+        for x in range(20):
             screen.blit(rolling_text, rolling_rect)
             font = pygame.font.SysFont("Times New Roman", 300)
             number_rolling = font.render(str(random.randrange(37)), True, (255, 255, 255))
@@ -245,6 +247,7 @@ class RouletteGame:
                             clear_bottom_rect = pygame.Rect(0, screen_height/2, screen_width, screen_height/2)
                             screen.fill((1, 138, 61), clear_bottom_rect)
                             if x == 14:
+                                self.sound1.play()
                                 running = False
                             elif x < 5:
                                 bet_number = self.text_input_box(screen, "Please choose which numbers to place your bet: ", screen_width/3, screen_height - 100, screen_width/4, screen_height/10)
@@ -275,9 +278,11 @@ class RouletteGame:
                                         roll = False
                                         mis_req = True
                                     bet_amount = self.points
-                    if quit_button.collidepoint(mouse_pos):            
+                    if quit_button.collidepoint(mouse_pos):
+                                self.sound1.play()            
                                 running = False
                     if cont_button.collidepoint(mouse_pos):
+                                self.sound1.play()
                                 buttons = self.create_board(screen, screen_width, screen_height, button_text)
 
             if roll:

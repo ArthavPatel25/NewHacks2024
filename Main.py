@@ -3,6 +3,7 @@ import sys
 from Games.Roulette import Roulette
 from Games.BlackJack import BlackJack
 from Games.Crabs import Crabs
+from Games.Poker import Poker
 
 # Initialize pygame
 pygame.init()
@@ -47,6 +48,7 @@ pygame.mixer.music.play(-1)
 draw_card_sound_effect = pygame.mixer.Sound("assets\sounds\draw cards sound effect.mp3")
 shuffle_card_SF  = pygame.mixer.Sound("assets\sounds\Shuffling Cards Sound Effects [ ezmp3.cc ].mp3")
 button_click_SF = pygame.mixer.Sound("assets\sounds\Wooden Button Click Sound Effect [ ezmp3.cc ].mp3")
+rolling_ball_SF = pygame.mixer.Sound("assets\sounds\Ball Sound effect.mp3")
 
 # Main game loop
 running = True
@@ -66,16 +68,20 @@ while running:
 
         if event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse click
             if quit_Button.collidepoint(mouse_pos):  # Check if button is clicked
+                button_click_SF.play()
                 running = False
             elif roulette_Button.collidepoint(mouse_pos):
-                Roulette.RouletteGame(100).runGame()
+                button_click_SF.play()
+                Roulette.RouletteGame(100, button_click_SF, rolling_ball_SF).runGame()
             elif blackjack_Button.collidepoint(mouse_pos):
                 button_click_SF.play() 
                 BlackJack.run_blackjack(screen,100,draw_card_sound_effect, shuffle_card_SF, button_click_SF)
             elif craps_Button.collidepoint(mouse_pos):
+                button_click_SF.play()
                 Crabs.main()
             elif poker_Button.collidepoint(mouse_pos):
-                print("test")
+                button_click_SF.play()
+                Poker.main()
 
     
     # Update the display

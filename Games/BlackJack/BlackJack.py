@@ -165,9 +165,9 @@ class Blackjack:
             self.screen.fill((39, 139, 34))
             points_text = self.font.render(f"Points: {self.player_points}", True, (255, 255, 255))
             self.screen.blit(points_text, (self.screen.get_width() - points_text.get_width() - 20, 20))
-            self.screen.blit(prompt_text, (self.screen.get_width() // 2 - 50, self.screen.get_height() // 2 - 50))
+            self.screen.blit(prompt_text, (self.screen.get_width() // 2 - 50, self.screen.get_height() // 2 ))
             user_text = self.font.render(user_input, True, (255, 255, 255))
-            self.screen.blit(user_text, (self.screen.get_width() // 2 + 10, self.screen.get_height() // 2 - 50))
+            self.screen.blit(user_text, (self.screen.get_width() // 2 + 10, self.screen.get_height() // 2 ))
 
             pygame.display.flip()
 
