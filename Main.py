@@ -69,8 +69,13 @@ while running:
             elif roulette_Button.collidepoint(mouse_pos):
                 Roulette.RouletteGame(100).runGame()
             elif blackjack_Button.collidepoint(mouse_pos):
+<<<<<<< HEAD
                 button_click_SF.play() 
                 BlackJack.run_blackjack(screen,100,draw_card_sound_effect, shuffle_card_SF, button_click_SF)
+=======
+                print("test")
+                # BlackJack.Blackjack(100).runGame()
+>>>>>>> 9436de2e65b078db4f7de978611f8625e61a34df
             elif craps_Button.collidepoint(mouse_pos):
                 print("test")
             elif poker_Button.collidepoint(mouse_pos):
