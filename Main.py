@@ -41,10 +41,6 @@ def create_button(text : str, pos : int):
 
     return button_rect
 
-# def launch_craps():
-#         craps_main()
-#         pygame.display.set_mode((screen_width, screen_height))  # Reset display to main menu size
-
 # Main game loop
 running = True
 while running:
