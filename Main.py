@@ -2,6 +2,7 @@ import pygame
 import sys
 from Games.Roulette import Roulette
 from Games.BlackJack import BlackJack
+from Games.Crabs import Crabs
 
 # Initialize pygame
 pygame.init()
@@ -40,12 +41,13 @@ def create_button(text : str, pos : int):
     screen.blit(button_text, text_rect)
 
     return button_rect
-
+  
 pygame.mixer.music.load("assets\sounds\🛑 Casino Music_ For Poker Night, Smooth Jazz, 1970s Mafia, Funk, 🔝 [ ezmp3.cc ].mp3")
 pygame.mixer.music.play(-1)
 draw_card_sound_effect = pygame.mixer.Sound("assets\sounds\draw cards sound effect.mp3")
 shuffle_card_SF  = pygame.mixer.Sound("assets\sounds\Shuffling Cards Sound Effects [ ezmp3.cc ].mp3")
 button_click_SF = pygame.mixer.Sound("assets\sounds\Wooden Button Click Sound Effect [ ezmp3.cc ].mp3")
+
 
 # Main game loop
 running = True
@@ -69,15 +71,10 @@ while running:
             elif roulette_Button.collidepoint(mouse_pos):
                 Roulette.RouletteGame(100).runGame()
             elif blackjack_Button.collidepoint(mouse_pos):
-<<<<<<< HEAD
                 button_click_SF.play() 
                 BlackJack.run_blackjack(screen,100,draw_card_sound_effect, shuffle_card_SF, button_click_SF)
-=======
-                print("test")
-                # BlackJack.Blackjack(100).runGame()
->>>>>>> 9436de2e65b078db4f7de978611f8625e61a34df
             elif craps_Button.collidepoint(mouse_pos):
-                print("test")
+                Crabs.main()
             elif poker_Button.collidepoint(mouse_pos):
                 print("test")
 
