@@ -2,6 +2,7 @@ import pygame
 import sys
 from Games.Roulette import Roulette
 from Games.BlackJack import BlackJack
+from Games.Poker import Poker
 
 # Initialize pygame
 pygame.init()
@@ -41,6 +42,7 @@ def create_button(text : str, pos : int):
 
     return button_rect
 
+  
 pygame.mixer.music.load("assets\sounds\🛑 Casino Music_ For Poker Night, Smooth Jazz, 1970s Mafia, Funk, 🔝 [ ezmp3.cc ].mp3")
 pygame.mixer.music.play(-1)
 draw_card_sound_effect = pygame.mixer.Sound("assets\sounds\draw cards sound effect.mp3")
@@ -74,7 +76,7 @@ while running:
             elif craps_Button.collidepoint(mouse_pos):
                 print("test")
             elif poker_Button.collidepoint(mouse_pos):
-                print("test")
+                Poker.main()
 
     
     # Update the display

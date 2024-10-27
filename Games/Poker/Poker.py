@@ -15,13 +15,9 @@ print("Pygame initialized")
 
 # Set up the display
 WIDTH, HEIGHT = 1280, 720
-try:
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Professional Poker Game")
-    print("Display set up successfully")
-except pygame.error as e:
-    print(f"Error setting up display: {e}")
-    sys.exit()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Professional Poker Game")
+print("Display set up successfully")
 
 # Colors
 WHITE = (255, 255, 255)
@@ -245,116 +241,106 @@ def draw_points(screen, players):
 
 # Main game loop
 def main():
-    try:
-        game = PokerGame()
-        clock = pygame.time.Clock()
-        running = True
-        game_state = "playing"
-        winner = None
+    game = PokerGame()
+    clock = pygame.time.Clock()
+    running = True
+    game_state = "playing"
+    winner = None
 
-        fold_button = Button(WIDTH // 2 - 230, HEIGHT - 80, 100, 50, "Fold", GREEN)
-        call_button = Button(WIDTH // 2 - 100, HEIGHT - 80, 100, 50, "Call", GREEN)
-        raise_button = Button(WIDTH // 2 + 30, HEIGHT - 80, 100, 50, "Raise", GREEN)
-        quit_button = Button(WIDTH // 2 + 160, HEIGHT - 80, 100, 50, "Quit", GREEN)
+    fold_button = Button(WIDTH // 2 - 230, HEIGHT - 80, 100, 50, "Fold", GREEN)
+    call_button = Button(WIDTH // 2 - 100, HEIGHT - 80, 100, 50, "Call", GREEN)
+    raise_button = Button(WIDTH // 2 + 30, HEIGHT - 80, 100, 50, "Raise", GREEN)
+    quit_button = Button(WIDTH // 2 + 160, HEIGHT - 80, 100, 50, "Quit", GREEN)
 
-        bet_input_box = pygame.Rect(WIDTH // 2 - 50, HEIGHT - 130, 140, 32)
-        bet_input = ""
-        input_active = False
+    bet_input_box = pygame.Rect(WIDTH // 2 - 50, HEIGHT - 130, 140, 32)
+    bet_input = ""
+    input_active = False
 
-        game.deal_cards()
+    game.deal_cards()
 
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if game_state == "round_over":
-                        game = PokerGame()
-                        game.deal_cards()
-                        game_state = "playing"
-                        winner = None
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if game_state == "round_over":
+                    game = PokerGame()
+                    game.deal_cards()
+                    game_state = "playing"
+                    winner = None
+                else:
+                    if bet_input_box.collidepoint(event.pos):
+                        input_active = not input_active
                     else:
-                        if bet_input_box.collidepoint(event.pos):
-                            input_active = not input_active
-                        else:
-                            input_active = False
-                        if fold_button.is_clicked(event.pos):
-                            game.handle_action("fold")
-                        elif call_button.is_clicked(event.pos):
-                            game.handle_action("call")
-                        elif raise_button.is_clicked(event.pos):
-                            if bet_input:
-                                try:
-                                    bet_amount = int(bet_input)
-                                    game.handle_action("raise", bet_amount)
-                                    bet_input = ""
-                                except ValueError:
-                                    print("Invalid bet amount")
-                        elif quit_button.is_clicked(event.pos):
-                            running = False  # Close poker and return to Main.py
-                elif event.type == pygame.KEYDOWN:
-                    if input_active:
-                        if event.key == pygame.K_RETURN:
-                            if bet_input:
-                                try:
-                                    bet_amount = int(bet_input)
-                                    game.handle_action("raise", bet_amount)
-                                    bet_input = ""
-                                except ValueError:
-                                    print("Invalid bet amount")
-                        elif event.key == pygame.K_BACKSPACE:
-                            bet_input = bet_input[:-1]
-                        elif event.unicode.isdigit():
-                            bet_input += event.unicode
+                        input_active = False
+                    if fold_button.is_clicked(event.pos):
+                        game.handle_action("fold")
+                    elif call_button.is_clicked(event.pos):
+                        game.handle_action("call")
+                    elif raise_button.is_clicked(event.pos):
+                        if bet_input:
+                            try:
+                                bet_amount = int(bet_input)
+                                game.handle_action("raise", bet_amount)
+                                bet_input = ""
+                            except ValueError:
+                                print("Invalid bet amount")
+                    elif quit_button.is_clicked(event.pos):
+                        return  # Ends the Poker game and returns to Main.py
+            elif event.type == pygame.KEYDOWN:
+                if input_active:
+                    if event.key == pygame.K_RETURN:
+                        if bet_input:
+                            try:
+                                bet_amount = int(bet_input)
+                                game.handle_action("raise", bet_amount)
+                                bet_input = ""
+                            except ValueError:
+                                print("Invalid bet amount")
+                    elif event.key == pygame.K_BACKSPACE:
+                        bet_input = bet_input[:-1]
+                    elif event.unicode.isdigit():
+                        bet_input += event.unicode
 
-            if game_state == "playing":
-                if game.players[game.current_player_index].is_ai:
-                    ai_bet = game.players[game.current_player_index].make_bet(game.current_bet)
-                    game.handle_action("raise", ai_bet)
+        if game_state == "playing":
+            if game.players[game.current_player_index].is_ai:
+                ai_bet = game.players[game.current_player_index].make_bet(game.current_bet)
+                game.handle_action("raise", ai_bet)
 
-                if game.game_state == "showdown" or len([p for p in game.players if p.is_active]) == 1:
-                    winner = game.determine_winner()
-                    winner.points += 50
-                    game_state = "round_over"
+            if game.game_state == "showdown" or len([p for p in game.players if p.is_active]) == 1:
+                winner = game.determine_winner()
+                winner.points += 50
+                game_state = "round_over"
 
-            # Draw everything
-            screen.blit(table_img, (0, 0))
-            draw_players(screen, game.players)
-            draw_host(screen, game.host)
-            draw_community_cards(screen, game.community_cards)
-            draw_pot(screen, game.pot)
-            draw_points(screen, game.players)
+        # Draw everything
+        screen.blit(table_img, (0, 0))
+        draw_players(screen, game.players)
+        draw_host(screen, game.host)
+        draw_community_cards(screen, game.community_cards)
+        draw_pot(screen, game.pot)
+        draw_points(screen, game.players)
 
-            fold_button.draw(screen)
-            call_button.draw(screen)
-            raise_button.draw(screen)
-            quit_button.draw(screen)
+        fold_button.draw(screen)
+        call_button.draw(screen)
+        raise_button.draw(screen)
+        quit_button.draw(screen)
 
-            pygame.draw.rect(screen, WHITE, bet_input_box)
+        pygame.draw.rect(screen, WHITE, bet_input_box)
+        font = pygame.font.Font(None, 32)
+        bet_surface = font.render(f"Bet: ${bet_input}", True, BLACK)
+        screen.blit(bet_surface, (bet_input_box.x + 5, bet_input_box.y + 5))
+
+        if game_state == "round_over" and winner:
+            font = pygame.font.Font(None, 48)
+            winner_text = font.render(f"{winner.name} wins!", True, WHITE)
+            screen.blit(winner_text, (WIDTH // 2 - winner_text.get_width() // 2, HEIGHT // 2))
+            
             font = pygame.font.Font(None, 32)
-            bet_surface = font.render(f"Bet: ${bet_input}", True, BLACK)
-            screen.blit(bet_surface, (bet_input_box.x + 5, bet_input_box.y + 5))
+            continue_text = font.render("Click anywhere to start a new round", True, WHITE)
+            screen.blit(continue_text, (WIDTH // 2 - continue_text.get_width() // 2, HEIGHT // 2 + 50))
 
-            if game_state == "round_over" and winner:
-                font = pygame.font.Font(None, 48)
-                winner_text = font.render(f"{winner.name} wins!", True, WHITE)
-                screen.blit(winner_text, (WIDTH // 2 - winner_text.get_width() // 2, HEIGHT // 2))
-                
-                font = pygame.font.Font(None, 32)
-                continue_text = font.render("Click anywhere to start a new round", True, WHITE)
-                screen.blit(continue_text, (WIDTH // 2 - continue_text.get_width() // 2, HEIGHT // 2 + 50))
-
-            pygame.display.flip()
-            clock.tick(60)
-
-        print("Game loop ended normally")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        print("Traceback:")
-        traceback.print_exc()
-    finally:
-        pygame.quit()
-        print("Pygame quit")
+        pygame.display.flip()
+        clock.tick(60)
 
 if __name__ == "__main__":
     main()
