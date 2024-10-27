@@ -9,6 +9,9 @@ class RouletteGame:
         self.screen_info = pygame.display.Info()
         self.points = points
         self.numbers = []
+    
+    def getPoints(self):
+        return self.points
 
     def create_board(self, screen, screen_width, screen_height, button_text):
         board_image = pygame.image.load("images/RoulleteBoard.png") 
@@ -86,7 +89,7 @@ class RouletteGame:
             if bet_type == x:
                 if len(numbers) == (x + 1):
                     for x in range(len(numbers) - 1):
-                        if int(numbers[x+1]) is not int(numbers[x]) + 1 or numbers[x] > 36 or numbers[x + 1] > 36:
+                        if int(numbers[x+1]) is not int(numbers[x]) + 1 or int(numbers[x]) > 36 or int(numbers[x + 1]) > 36:
                             return False
                     return True
                 else:
@@ -109,22 +112,32 @@ class RouletteGame:
             val = int(self.text_input_box(screen, "Pick a dozen (1, 2, or 3)", self.screen_info.current_w/3, self.screen_info.current_h - 100, self.screen_info.current_w/4, self.screen_info.current_h/10))
             clear_rect = pygame.Rect(self.screen_info.current_w/3, self.screen_info.current_h - 150, self.screen_info.current_w, self.screen_info.current_h/4)
             screen.fill((1, 138, 61), clear_rect)
-            if val == 1:
-                return list(range(1, 13))
-            if val == 2:
-                return list(range(13, 25))
-            if val == 3:
-                return list(range(25, 17))
+            while True:
+                if val == 1:
+                    return list(range(1, 13))
+                elif val == 2:
+                    return list(range(13, 25))
+                elif val == 3:
+                    return list(range(25, 17))
+                else:
+                    val = int(self.text_input_box(screen, "Invalid input, pick a dozen (1, 2, or 3)", self.screen_info.current_w/3, self.screen_info.current_h - 100, self.screen_info.current_w/4, self.screen_info.current_h/10))
+                    clear_rect = pygame.Rect(self.screen_info.current_w/3, self.screen_info.current_h - 150, self.screen_info.current_w, self.screen_info.current_h/4)
+                    screen.fill((1, 138, 61), clear_rect)
         if bet_type == 13: 
             val = int(self.text_input_box(screen, "Pick a column (1, 2, or 3)", self.screen_info.current_w/3, self.screen_info.current_h - 100, self.screen_info.current_w/4, self.screen_info.current_h/10))
             clear_rect = pygame.Rect(self.screen_info.current_w/3, self.screen_info.current_h - 150, self.screen_info.current_w, self.screen_info.current_h/4)
             screen.fill((1, 138, 61), clear_rect)
-            if val == 1:
-                return [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
-            if val == 2:
-                return [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
-            if val == 3:
-                return [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]         
+            while True:
+                if val == 1:
+                    return [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+                elif val == 2:
+                    return [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]
+                elif val == 3:
+                    return [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]  
+                else:
+                    val = int(self.text_input_box(screen, "Invalid input, pick a column (1, 2, or 3)", self.screen_info.current_w/3, self.screen_info.current_h - 100, self.screen_info.current_w/4, self.screen_info.current_h/10))
+                    clear_rect = pygame.Rect(self.screen_info.current_w/3, self.screen_info.current_h - 150, self.screen_info.current_w, self.screen_info.current_h/4)
+                    screen.fill((1, 138, 61), clear_rect)        
 
     def bet_checker(self, screen, bet_amount, screen_width, screen_height):
         clear_rect = pygame.Rect(screen_width/3, screen_height - 150, screen_width, screen_height/4)
